@@ -17,3 +17,5 @@ SmartSpend is a web-based financial dashboard that helps users manage expenses b
 
 ## Status
 🚧 This project is currently under development.
+<img width="1372" height="773" alt="image" src="https://github.com/user-attachments/assets/398dce46-2dd3-4816-ba86-21780cf57082" />
+
