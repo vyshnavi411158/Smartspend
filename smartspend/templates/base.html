@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block title %}
+        SmartSpend
+        {% endblock %}
+    </title>
+
+    <!-- Google Fonts -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <!-- Font Awesome -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<!-- Common CSS -->
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- Page CSS -->
+
+    {% block css %}
+    {% endblock %}
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    {% include "sidebar.html" %}
+
+    <main class="main-content">
+
+        {% block content %}
+
+        {% endblock %}
+
+    </main>
+
+</div>
+
+<!-- Page JS -->
+
+{% block js %}
+{% endblock %}
+
+</body>
+
+</html>

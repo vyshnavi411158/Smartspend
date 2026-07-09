@@ -1,0 +1,352 @@
+{% extends "base.html" %}
+
+{% block title %}
+Settings | SmartSpend
+{% endblock %}
+
+{% block css %}
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/settings.css') }}">
+
+{% endblock %}
+
+{% block content %}
+
+
+
+<header class="topbar">
+
+    <div>
+
+        <h1>Settings</h1>
+
+        <p>
+            Manage your account and application preferences.
+        </p>
+
+    </div>
+
+    <div class="profile">
+
+        <img
+        src="{{ url_for('static', filename='uploads/profile.png') }}"
+        alt="Profile">
+
+        <div>
+
+            <h4>{{ name }}</h4>
+
+            <p>Premium User</p>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+
+<section class="settings-card">
+
+    <div class="card-title">
+
+        <i class="fa-solid fa-user"></i>
+
+        <h2>Profile Information</h2>
+
+    </div>
+
+    <div class="profile-image">
+
+        <img
+        src="{{ url_for('static', filename='uploads/profile.png') }}"
+        alt="Profile">
+
+        <button>
+
+            <i class="fa-solid fa-camera"></i>
+
+            Change Photo
+
+        </button>
+
+    </div>
+
+    <div class="form-grid">
+
+        <div class="input-group">
+
+            <label>Full Name</label>
+
+            <input
+                type="text"
+                value="{{ name }}">
+
+        </div>
+
+        <div class="input-group">
+
+            <label>Email Address</label>
+
+            <input
+                type="email"
+                value="">
+
+        </div>
+
+        <div class="input-group">
+
+            <label>Phone Number</label>
+
+            <input
+                type="text"
+                placeholder="+91 9876543210">
+
+        </div>
+
+        <div class="input-group">
+
+            <label>University</label>
+
+            <input
+                type="text"
+                value="Parul University">
+
+        </div>
+
+    </div>
+
+    <button class="save-btn">
+
+        <i class="fa-solid fa-floppy-disk"></i>
+
+        Save Changes
+
+    </button>
+
+</section>
+
+
+<section class="settings-card">
+
+<div class="card-title">
+
+<i class="fa-solid fa-lock"></i>
+
+<h2>Security</h2>
+
+</div>
+
+<div class="form-grid">
+
+<div class="input-group">
+
+<label>Current Password</label>
+
+<input
+type="password"
+placeholder="••••••••">
+
+</div>
+
+<div class="input-group">
+
+<label>New Password</label>
+
+<input
+type="password"
+placeholder="Enter New Password">
+
+</div>
+
+<div class="input-group">
+
+<label>Confirm Password</label>
+
+<input
+type="password"
+placeholder="Confirm Password">
+
+</div>
+
+</div>
+
+<button class="save-btn">
+
+<i class="fa-solid fa-key"></i>
+
+Update Password
+
+</button>
+
+</section>
+
+
+<section class="settings-card">
+
+    <div class="card-title">
+
+        <i class="fa-solid fa-wallet"></i>
+
+        <h2>Monthly Budget</h2>
+
+    </div>
+
+    <div class="input-group">
+
+        <label>Budget Amount</label>
+
+        <input
+            type="number"
+            placeholder="20000">
+
+    </div>
+
+    <button class="save-btn">
+
+        <i class="fa-solid fa-piggy-bank"></i>
+
+        Save Budget
+
+    </button>
+
+</section>
+
+
+
+<section class="settings-card">
+
+    <div class="card-title">
+
+        <i class="fa-solid fa-sliders"></i>
+
+        <h2>Preferences</h2>
+
+    </div>
+
+    <div class="setting-row">
+
+        <div>
+
+            <h4>Dark Mode</h4>
+
+            <p>Enable dark theme</p>
+
+        </div>
+
+        <label class="switch">
+
+            <input type="checkbox" checked>
+
+            <span class="slider"></span>
+
+        </label>
+
+    </div>
+
+    <div class="setting-row">
+
+        <div>
+
+            <h4>Notifications</h4>
+
+            <p>Receive important alerts</p>
+
+        </div>
+
+        <label class="switch">
+
+            <input type="checkbox" checked>
+
+            <span class="slider"></span>
+
+        </label>
+
+    </div>
+
+    <div class="setting-row">
+
+        <div>
+
+            <h4>Currency</h4>
+
+        </div>
+
+        <select>
+
+            <option>Indian Rupee (₹)</option>
+            <option>US Dollar ($)</option>
+            <option>Euro (€)</option>
+            <option>Pound (£)</option>
+
+        </select>
+
+    </div>
+
+    <div class="setting-row">
+
+        <div>
+
+            <h4>Language</h4>
+
+        </div>
+
+        <select>
+
+            <option>English</option>
+            <option>Hindi</option>
+
+        </select>
+
+    </div>
+
+</section>
+
+
+
+<section class="settings-card danger-zone">
+
+    <div class="card-title">
+
+        <i class="fa-solid fa-triangle-exclamation"></i>
+
+        <h2>Danger Zone</h2>
+
+    </div>
+
+    <p>
+
+        These actions are permanent and cannot be undone.
+
+    </p>
+
+    <div class="danger-buttons">
+
+        <a href="{{ url_for('logout') }}" class="logout-btn">
+
+            <i class="fa-solid fa-right-from-bracket"></i>
+
+            Logout
+
+        </a>
+
+        <button class="delete-btn">
+
+            <i class="fa-solid fa-trash"></i>
+
+            Delete Account
+
+        </button>
+
+    </div>
+
+</section>
+
+{% endblock %}
+
+{% block js %}
+
+<script src="{{ url_for('static', filename='js/settings.js') }}"></script>
+
+{% endblock %}

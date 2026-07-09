@@ -1,0 +1,366 @@
+{% extends "base.html" %}
+
+{% block title %}
+Dashboard | SmartSpend
+{% endblock %}
+
+{% block css %}
+
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+{% endblock %}
+
+{% block content %}
+
+
+
+<header class="topbar">
+
+    <div>
+
+        <h1>Dashboard</h1>
+
+        <p>
+            Welcome, {{ name }} 👋
+        </p>
+
+    </div>
+
+    <div class="top-right">
+
+        <div class="search">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+                type="text"
+                placeholder="Search receipts...">
+
+        </div>
+
+        <button class="icon-btn">
+
+            <i class="fa-solid fa-bell"></i>
+
+        </button>
+
+        <button class="icon-btn">
+
+            <i class="fa-solid fa-moon"></i>
+
+        </button>
+
+        <div class="profile">
+
+            <img src="{{ url_for('static', filename='uploads/profile.png') }}"
+                 alt="Profile">
+
+            <div>
+
+                <h4>{{ name }}</h4>
+
+                <p>Premium User</p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+
+<section class="cards">
+
+    <!-- Card 1 -->
+
+    <div class="card purple">
+
+        <div class="card-top">
+
+            <div>
+
+                <p>Total Expenses</p>
+
+                <h2>₹{{ "{:,.2f}".format(total_expenses) }}</h2>
+
+            </div>
+
+            <div class="card-icon">
+
+                <i class="fa-solid fa-wallet"></i>
+
+            </div>
+
+        </div>
+
+        <span class="positive">
+
+            <i class="fa-solid fa-arrow-trend-up"></i>
+
+            +12.4% This Month
+
+        </span>
+
+    </div>
+
+    <!-- Card 2 -->
+
+    <div class="card blue">
+
+        <div class="card-top">
+
+            <div>
+
+                <p>Budget Left</p>
+
+               <h2>₹{{ "{:,.2f}".format(budget_left) }}</h2>
+
+            </div>
+
+            <div class="card-icon">
+
+                <i class="fa-solid fa-piggy-bank"></i>
+
+            </div>
+
+        </div>
+
+        <span class="positive">
+
+            <i class="fa-solid fa-circle-check"></i>
+
+            Within Budget
+
+        </span>
+
+    </div>
+
+    <!-- Card 3 -->
+
+    <div class="card green">
+
+        <div class="card-top">
+
+            <div>
+
+                <p>Receipts</p>
+
+                <h2>{{ total_receipts }}</h2>
+
+            </div>
+
+            <div class="card-icon">
+
+                <i class="fa-solid fa-receipt"></i>
+
+            </div>
+
+        </div>
+
+        <span class="positive">
+
+            <i class="fa-solid fa-plus"></i>
+
+            18 New Today
+
+        </span>
+
+    </div>
+
+    <!-- Card 4 -->
+
+    <div class="card orange">
+
+        <div class="card-top">
+
+            <div>
+
+                <p>Savings</p>
+
+                <h2>₹{{ "{:,.2f}".format(savings) }}</h2>
+
+            </div>
+
+            <div class="card-icon">
+
+                <i class="fa-solid fa-coins"></i>
+
+            </div>
+
+        </div>
+
+        <span class="negative">
+
+            <i class="fa-solid fa-arrow-down"></i>
+
+            -2.1% This Month
+
+        </span>
+
+    </div>
+
+</section>
+
+
+
+<section class="charts">
+
+    <div class="chart-card">
+
+        <div class="title">
+
+            <h3>Monthly Expenses</h3>
+
+        </div>
+
+        <canvas id="expenseChart"></canvas>
+
+    </div>
+
+    <div class="chart-card">
+
+        <div class="title">
+
+            <h3>Expense Categories</h3>
+
+        </div>
+
+        <canvas id="categoryChart"></canvas>
+
+    </div>
+
+</section>
+
+
+<section class="transactions">
+
+    <div class="table-card">
+
+        <div class="title">
+
+            <h3>Recent Transactions</h3>
+
+            <a href="/receipts">View All</a>
+
+        </div>
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Merchant</th>
+
+                    <th>Category</th>
+
+                    <th>Date</th>
+
+                    <th>Amount</th>
+
+                    <th>Status</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% if recent_transactions %}
+
+                    {% for transaction in recent_transactions %}
+
+                    <tr>
+
+                        <td>{{ transaction[0] }}</td>
+
+                        <td>{{ transaction[1] if transaction[1] else "Other" }}</td>
+
+                        <td>{{ transaction[2].strftime("%d %b %Y") }}</td>
+
+                        <td>₹{{ "{:,.2f}".format(transaction[3]) }}</td>
+
+                        <td>
+                            <span class="success">
+                                Completed
+                            </span>
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <tr>
+
+                        <td colspan="5" style="text-align:center;padding:30px;">
+
+                            No receipts found.
+
+                        </td>
+
+                    </tr>
+
+                {% endif %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+
+
+<section class="budget-section">
+
+    <div class="budget-card">
+
+        <h3>Monthly Budget</h3>
+
+        <h2>₹20,000</h2>
+
+        <p>Spent ₹12,450 of ₹20,000</p>
+
+        <div class="progress">
+
+            <div class="progress-bar" style="width:62%;"></div>
+
+        </div>
+
+        <span>62% Used</span>
+
+    </div>
+
+</section>
+
+
+
+</section>
+
+
+</div>
+
+</section>
+
+{% endblock %}
+
+{% block js %}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const monthlyChart = {{ monthly_chart|tojson }};
+    const categoryChart = {{ category_chart|tojson }};
+</script>
+
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+
+{% endblock %}

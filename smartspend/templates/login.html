@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartSpend Login</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+</head>
+<body>
+
+    <div class="container">
+
+        <h1>Welcome Back! 👋</h1>
+
+        <p class="sign">
+            Sign in to continue to your account
+        </p>
+
+       <form action="/login" method="POST">
+
+            <div class="input-group">
+                <label for="email">Email Address</label>
+
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="Enter your Email"
+                    autocomplete="email"
+                    required>
+            </div>
+
+            <div class="input-group">
+                <label for="password">Password</label>
+
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Enter your Password"
+                    autocomplete="current-password"
+                    required>
+            </div>
+
+            <div class="options">
+
+                <div class="remember">
+                    <input type="checkbox" id="remember">
+
+                    <label for="remember">
+                        Remember me?
+                    </label>
+                </div>
+
+                <a href="/forgot-password">Forgot Password?</a>
+
+            </div>
+
+            <button type="submit" class="login">
+                Sign In
+            </button>
+
+            <p id="error"></p>
+
+        </form>
+
+        <div class="divider">
+            <span></span>
+            <p>or continue with</p>
+            <span></span>
+        </div>
+
+        <div class="icons">
+
+            <button type="button" class="social-btn">
+                <img src="../static/uploads/icons8-google-logo-48.png" alt="Google">
+            </button>
+
+            <button type="button" class="social-btn">
+                <img src="../static/uploads/apple white logo.png" alt="Apple">
+            </button>
+
+            <button type="button" class="social-btn">
+                <img src="../static/uploads/microsoft new logo.png " alt="Microsoft">
+            </button>
+
+        </div>
+
+        <div class="signup">
+            <p>
+                Don't have an account?
+                <a href="/signup">Sign Up</a>
+            </p>
+        </div>
+
+    </div>
+
+    <script src="{{ url_for('static', filename='js/login.js') }}"></script>
+
+</body>
+</html>

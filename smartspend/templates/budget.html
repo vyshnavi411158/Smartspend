@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block title %}
+Budget | SmartSpend
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/budget.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<header class="topbar">
+
+    <div>
+
+        <h1>Budget Management</h1>
+
+        <p>Set and manage your monthly spending budget.</p>
+
+    </div>
+
+</header>
+
+<section class="budget-container">
+
+    
+
+    <div class="budget-card">
+
+        <p>Current Budget</p>
+
+        <h1>₹{{ "{:,.2f}".format(monthly_budget) }}</h1>
+
+        <small>{{ current_month }} {{ current_year }}</small>
+
+    </div>
+
+   
+
+    <form method="POST" class="budget-form">
+
+        <div class="input-group">
+
+            <label>Monthly Budget</label>
+
+            <input
+                type="number"
+                name="budget"
+                value="{{ monthly_budget }}"
+                placeholder="Enter budget"
+                required>
+
+        </div>
+
+        <button type="submit" class="save-btn">
+
+            Save Budget
+
+        </button>
+
+    </form>
+
+    
+    <div class="budget-status">
+
+        <h3>Budget Status</h3>
+
+        <div class="status-item">
+
+            <span>Total Budget</span>
+
+            <strong>₹{{ "{:,.2f}".format(monthly_budget) }}</strong>
+
+        </div>
+
+        <div class="status-item">
+
+            <span>Total Expenses</span>
+
+            <strong>₹{{ "{:,.2f}".format(total_expenses) }}</strong>
+
+        </div>
+
+        <div class="status-item">
+
+            <span>Remaining</span>
+
+            <strong>₹{{ "{:,.2f}".format(budget_left) }}</strong>
+
+        </div>
+
+        <div class="progress">
+
+            <div
+                class="progress-bar"
+                style="width: {{ budget_percent }}%;">
+            </div>
+
+        </div>
+
+        <p>{{ budget_percent }}% of your monthly budget used.</p>
+
+    </div>
+
+</section>
+
+{% endblock %}

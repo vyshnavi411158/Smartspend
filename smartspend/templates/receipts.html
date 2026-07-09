@@ -1,0 +1,260 @@
+{% extends "base.html" %}
+
+{% block title %}
+Receipts | SmartSpend
+{% endblock %}
+
+{% block css %}
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/receipt.css') }}">
+
+{% endblock %}
+
+{% block content %}
+
+
+
+<header class="topbar">
+
+    <div>
+
+        <h1>Receipts</h1>
+
+        <p>
+            View and manage all your uploaded receipts.
+        </p>
+
+    </div>
+
+    <div class="top-right">
+
+        <div class="search">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+    type="text"
+    id="searchReceipt"
+    placeholder="Search merchant, category, payment...">
+
+        </div>
+
+        <button class="icon-btn">
+
+            <i class="fa-solid fa-bell"></i>
+
+        </button>
+
+        <button class="icon-btn">
+
+            <i class="fa-solid fa-moon"></i>
+
+        </button>
+
+        <div class="profile">
+
+            <img
+            src="{{ url_for('static', filename='uploads/profile.png') }}"
+            alt="Profile">
+
+            <div>
+
+                <h4>{{ name }}</h4>
+
+                <p>Premium User</p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+
+<section class="page-heading">
+
+    <div>
+
+        <h2>All Receipts</h2>
+
+        <p>
+
+            Manage your uploaded receipts and expenses.
+
+        </p>
+
+    </div>
+
+    <div class="filters">
+
+        <select id="categoryFilter">
+
+            <option value="">All Categories</option>
+
+            <option value="Food">Food</option>
+
+            <option value="Shopping">Shopping</option>
+
+            <option value="Travel">Travel</option>
+
+            <option value="Healthcare">Healthcare</option>
+
+            <option value="Groceries">Groceries</option>
+
+            <option value="Entertainement">Entertainment</option>
+
+            <option value="Bills">Bills</option>
+
+            <option value="Education">Education</option>
+
+            <option value="Others">Others</option>
+
+        </select>
+
+    </div>
+
+</section>
+
+
+
+<section class="table-section">
+
+<table class="receipt-table">
+
+<thead>
+
+<tr>
+
+<th>ID</th>
+
+<th>Merchant</th>
+
+<th>Amount</th>
+
+<th>Date</th>
+
+<th>Category</th>
+
+<th>Payment</th>
+
+<th>Receipt</th>
+
+<th>Actions</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for receipt in receipts %}
+
+<tr>
+
+<td>{{ receipt[0] }}</td>
+
+<td>{{ receipt[1] }}</td>
+
+<td>₹{{ receipt[2] }}</td>
+
+<td>{{ receipt[3] }}</td>
+
+<td>{{ receipt[4] }}</td>
+
+<td>{{ receipt[5] }}</td>
+
+<td>
+
+{% if receipt[6] %}
+
+<a href="{{ url_for('static', filename='uploads/' + receipt[6]) }}"
+target="_blank">
+
+<img
+class="receipt-thumb preview-image"
+src="{{ url_for('static', filename='uploads/' + receipt[6]) }}"
+alt="Receipt">
+</a>
+
+{% else %}
+
+<div class="no-image">
+
+    <i class="fa-solid fa-image"></i>
+
+    <span>No Image</span>
+
+</div>
+
+{% endif %}
+
+</td>
+
+<td>
+
+<div class="actions">
+
+<a href="/edit-receipt/{{ receipt[0] }}" class="edit-btn">
+
+<i class="fa-solid fa-pen"></i>
+
+Edit
+
+</a>
+
+<a href="/delete-receipt/{{ receipt[0] }}"
+class="delete-btn"
+onclick="return confirm('Delete this receipt?');">
+
+<i class="fa-solid fa-trash"></i>
+
+Delete
+
+</a>
+
+</div>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+{% if receipts|length == 0 %}
+
+<tr>
+
+<td colspan="8" style="text-align:center; padding:30px;">
+
+No receipts found.
+
+</td>
+
+</tr>
+
+{% endif %}
+
+</tbody>
+
+</table>
+
+</section>
+
+{% endblock %}
+
+{% block js %}
+
+<script src="{{ url_for('static', filename='js/receipts.js') }}"></script>
+
+
+<div id="imageModal" class="modal">
+
+    <span class="close-modal">&times;</span>
+
+    <img id="modalImage" class="modal-content">
+
+</div>
+{% endblock %}

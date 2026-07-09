@@ -1,0 +1,357 @@
+{% extends "base.html" %}
+
+{% block title %}
+Reports | SmartSpend
+{% endblock %}
+
+{% block css %}
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/reports.css') }}">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+{% endblock %}
+
+{% block content %}
+
+
+
+<header class="topbar">
+
+    <div>
+
+        <h1>Financial Reports</h1>
+
+        <p>
+            Analyze your spending habits and savings.
+        </p>
+
+    </div>
+
+    <div class="top-right">
+
+        <select class="month-filter">
+
+            <option>July 2026</option>
+            <option>June 2026</option>
+            <option>May 2026</option>
+
+        </select>
+
+        <button class="export-btn">
+
+            <i class="fa-solid fa-file-pdf"></i>
+
+            Export PDF
+
+        </button>
+
+        <button class="export-btn excel">
+
+            <i class="fa-solid fa-file-excel"></i>
+
+            Export Excel
+
+        </button>
+
+        <div class="profile">
+
+            <img
+            src="{{ url_for('static', filename='uploads/profile.png') }}"
+            alt="Profile">
+
+            <div>
+
+                <h4>{{ name }}</h4>
+
+                <p>Premium User</p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+
+<section class="report-cards">
+
+    <!-- Total Expenses -->
+
+    <div class="report-card purple">
+
+        <i class="fa-solid fa-wallet"></i>
+
+        <h2>₹{{ "{:,.2f}".format(total_expenses) }}</h2>
+
+        <p>Total Expenses</p>
+
+    </div>
+
+    <!-- Total Savings -->
+
+    <div class="report-card blue">
+
+        <i class="fa-solid fa-piggy-bank"></i>
+
+        <h2>₹{{ "{:,.2f}".format(total_savings) }}</h2>
+
+        <p>Total Savings</p>
+
+    </div>
+
+    <!-- Average Expense -->
+
+    <div class="report-card green">
+
+        <i class="fa-solid fa-chart-simple"></i>
+
+        <h2>₹{{ "{:,.2f}".format(average_expense) }}</h2>
+
+        <p>Average Expense</p>
+
+    </div>
+
+    <!-- Total Receipts -->
+
+    <div class="report-card orange">
+
+        <i class="fa-solid fa-receipt"></i>
+
+        <h2>{{ receipt_count }}</h2>
+
+        <p>Total Receipts</p>
+
+    </div>
+
+</section>
+
+
+<section class="chart-grid">
+
+<div class="chart-card large">
+
+    <div class="card-header">
+
+        <h3>Monthly Expenses</h3>
+
+        <button>
+
+            View Details
+
+        </button>
+
+    </div>
+
+    <canvas id="expenseChart"></canvas>
+
+</div>
+
+<div class="chart-card">
+
+    <div class="card-header">
+
+        <h3>Expense Categories</h3>
+
+    </div>
+
+    <canvas id="categoryChart"></canvas>
+
+</div>
+
+<div class="chart-card large">
+
+    <div class="card-header">
+
+        <h3>Spending Trend</h3>
+
+    </div>
+
+    <canvas id="trendChart"></canvas>
+
+</div>
+
+<div class="chart-card">
+
+    <div class="card-header">
+
+        <h3>Budget Analysis</h3>
+
+    </div>
+
+    <div class="budget-analysis">
+
+        <div class="budget-item">
+
+            <span>Total Budget</span>
+
+            <strong>₹{{ "{:,.2f}".format(monthly_budget) }}</strong>
+        </div>
+
+        <div class="budget-item">
+
+            <span>Total Spent</span>
+
+            <strong>₹{{ "{:,.2f}".format(total_expenses) }}</strong>
+
+        </div>
+
+        <div class="budget-item">
+
+            <span>Remaining</span>
+
+            <strong>₹{{ "{:,.2f}".format(total_savings) }}</strong>
+
+        </div>
+
+        <div class="progress">
+
+            <div
+    class="progress-bar"
+    style="width:
+    {% if monthly_budget > 0 %}
+        {{ ((total_expenses / monthly_budget) * 100)|round(0) }}%
+    {% else %}
+        0%
+    {% endif %}
+    ;">
+</div>
+
+        </div>
+
+        <p>
+{% if monthly_budget > 0 %}
+<p>
+
+{{ ((total_expenses/monthly_budget)*100)|round(0) }}%
+of your monthly budget has been used.
+
+</p>
+{% else %}
+<p>No monthly budget has been set.</p>
+{% endif %}
+
+        </p>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<section class="insights">
+
+    <div class="insight-card">
+
+        <div class="insight-title">
+
+            <i class="fa-solid fa-robot"></i>
+
+            <h3>AI Financial Insights</h3>
+
+        </div>
+
+        <div class="insight-list">
+
+            <div class="insight">
+
+                <i class="fa-solid fa-circle-check"></i>
+
+                <p>
+                    You spent <strong>18%</strong> more on Food compared to last month.
+                </p>
+
+            </div>
+
+            <div class="insight">
+
+                <i class="fa-solid fa-circle-check"></i>
+
+                <p>
+                    Shopping expenses decreased by <strong>12%</strong>.
+                </p>
+
+            </div>
+
+            <div class="insight">
+
+                <i class="fa-solid fa-circle-check"></i>
+
+                <p>
+                    You saved approximately <strong>₹2,300</strong> this month.
+                </p>
+
+            </div>
+
+            <div class="insight">
+
+                <i class="fa-solid fa-circle-check"></i>
+
+                <p>
+                    Consider reducing Food delivery to increase savings.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<section class="download-section">
+
+    <div class="download-card">
+
+        <div>
+
+            <h3>Download Reports</h3>
+
+            <p>
+                Export your financial reports as PDF or Excel.
+            </p>
+
+        </div>
+
+        <div class="download-buttons">
+
+            <button class="pdf">
+
+                <i class="fa-solid fa-file-pdf"></i>
+
+                PDF
+
+            </button>
+
+            <button class="excel-btn">
+
+                <i class="fa-solid fa-file-excel"></i>
+
+                Excel
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
+
+{% block js %}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const monthlyChart = {{ monthly_chart|tojson }};
+const categoryChart = {{ category_chart|tojson }};
+</script>
+<script src="{{ url_for('static', filename='js/reports.js') }}"></script>
+
+{% endblock %}

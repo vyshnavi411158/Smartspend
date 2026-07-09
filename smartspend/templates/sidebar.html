@@ -1,0 +1,110 @@
+<aside class="sidebar">
+
+    <!-- Logo -->
+
+    <div class="logo">
+
+        <div class="logo-icon">
+            <i class="fa-solid fa-wallet"></i>
+        </div>
+
+        <div>
+            <h2>SmartSpend</h2>
+            <p>Finance Manager</p>
+        </div>
+
+    </div>
+
+    <!-- Menu -->
+
+    <ul class="menu">
+
+        <li class="{% if request.endpoint=='dashboard' %}active{% endif %}">
+            <a href="{{ url_for('dashboard') }}">
+                <i class="fa-solid fa-house"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+
+        <li class="{% if request.endpoint=='receipts' %}active{% endif %}">
+            <a href="{{ url_for('receipts') }}">
+                <i class="fa-solid fa-receipt"></i>
+                <span>Receipts</span>
+            </a>
+        </li>
+
+        <li class="{% if request.endpoint=='add_receipt' %}active{% endif %}">
+            <a href="{{ url_for('add_receipt') }}">
+                <i class="fa-solid fa-upload"></i>
+                <span>Add Receipt</span>
+            </a>
+        </li>
+
+        <li class="{% if request.endpoint=='reports' %}active{% endif %}">
+            <a href="{{ url_for('reports') }}">
+                <i class="fa-solid fa-chart-line"></i>
+                <span>Reports</span>
+            </a>
+        </li>
+
+        <li class="{% if request.endpoint=='budget' %}active{% endif %}">
+    <a href="{{ url_for('budget') }}">
+        <i class="fa-solid fa-piggy-bank"></i>
+        <span>Budget</span>
+    </a>
+</li>
+
+        <li class="{% if request.endpoint=='categories' %}active{% endif %}">
+    <a href="{{ url_for('categories') }}">
+        <i class="fa-solid fa-layer-group"></i>
+        <span>Categories</span>
+    </a>
+</li>
+
+        <li>
+            <a href="#">
+                <i class="fa-solid fa-lightbulb"></i>
+                <span>AI Insights</span>
+                <span class="new">NEW</span>
+            </a>
+        </li>
+
+        <li class="{% if request.endpoint=='settings' %}active{% endif %}">
+            <a href="{{ url_for('settings') }}">
+                <i class="fa-solid fa-gear"></i>
+                <span>Settings</span>
+            </a>
+        </li>
+
+    </ul>
+
+    <!-- Premium Card -->
+
+    <div class="premium-card">
+
+        <h3>Upgrade to Pro</h3>
+
+        <p>
+            Unlock unlimited OCR scans,
+            AI insights and cloud backup.
+        </p>
+
+        <button>Upgrade</button>
+
+    </div>
+
+    <!-- Logout -->
+
+    <div class="logout">
+
+        <a href="{{ url_for('logout') }}">
+
+            <i class="fa-solid fa-right-from-bracket"></i>
+
+            <span>Logout</span>
+
+        </a>
+
+    </div>
+
+</aside>

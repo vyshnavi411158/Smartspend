@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartSpend - Sign Up</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/signup.css') }}">
+</head>
+<body>
+
+    <div class="container">
+
+        <h1>Create Account 🚀</h1>
+        <p class="subtitle">Create your SmartSpend account</p>
+
+        <form action="/signup" method="POST">
+
+            <div class="input-group">
+                <label for="name">Full Name</label>
+                <input
+                    type="text"
+                    id="name"
+                    name="full_name"
+                    placeholder="Enter your full name"
+                    required>
+            </div>
+
+            <div class="input-group">
+                <label for="email">Email Address</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Enter your email"
+                    required>
+            </div>
+            <div class="input-group">
+
+<label for="phone">Phone Number</label>
+
+<input
+type="text"
+id="phone"
+name="phone"
+placeholder="Enter your phone number">
+
+</div>
+
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Enter your password"
+                    required>
+            </div>
+
+            <div class="input-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input
+                    type="password"
+                    id="confirmPassword"
+                    placeholder="Confirm your password"
+                    required>
+            </div>
+
+            <button type="submit" class="signup-btn">
+                Create Account
+            </button>
+
+            <p id="error"></p>
+
+        </form>
+
+        <div class="login-link">
+            Already have an account?
+            <a href="/login">Login</a>
+        </div>
+
+    </div>
+
+    <script src="{{ url_for('static', filename='js/signup.js') }}"></script>
+
+</body>
+</html>
